@@ -1,0 +1,15 @@
+<div class="content-section">
+  <div class="section-header">
+    <h1>CONTEÚDOS</h1>
+  </div>
+
+  <div class="horizontal-scroll">
+    @for (card of contentCards; track card) {
+    <div class="content-card" [ngClass]="{ highlighted: card.selected }">
+      @if (card.selected) {
+      <div class="highlight-box"></div>
+      }
+    </div>
+    }
+  </div>
+</div>

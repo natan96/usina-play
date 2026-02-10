@@ -1,0 +1,164 @@
+.content-section {
+  margin-bottom: 32px;
+  overflow: visible;
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    h1 {
+      color: white;
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 1px;
+      padding-left: 16px;
+    }
+
+    .add-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #f07d07;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      ion-icon {
+        color: #f07d07;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 8px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.workout-card {
+  min-width: 250px;
+  height: auto;
+  overflow: visible;
+  position: relative;
+  margin-left: 16px;
+
+  img {
+    width: 100%;
+    border-radius: 16px;
+    height: auto;
+    object-fit: cover;
+  }
+
+  &.new-workout {
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+
+      .add-workout-icon {
+        width: 50px;
+        height: 50px;
+        border: 1px solid white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        ion-icon {
+          color: white;
+          font-size: 28px;
+        }
+      }
+
+      p {
+        color: white;
+        font-weight: 400;
+        font-size: 20px;
+        margin: 0;
+        max-width: 87px;
+        line-height: 115%;
+      }
+    }
+  }
+
+  .card-title {
+    position: absolute;
+    bottom: 16px;
+    left: 32px;
+    right: 16px;
+    text-transform: uppercase;
+
+    p {
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      margin: 0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  &.skeleton-card {
+    .skeleton-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.1) 25%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.1) 75%
+      );
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      border-radius: 16px;
+    }
+
+    .skeleton-title {
+      position: absolute;
+      bottom: 16px;
+      left: 32px;
+      right: 16px;
+
+      .skeleton-text {
+        height: 16px;
+        width: 60%;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.15) 25%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0.15) 75%
+        );
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s infinite;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+.workout-card.last {
+  margin-right: 32%;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

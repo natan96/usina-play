@@ -1,0 +1,32 @@
+<div class="content-section">
+  <div class="section-header">
+    <h1>PROGRAMAS</h1>
+    <span class="badge-new">NOVO</span>
+  </div>
+
+  <div class="horizontal-scroll">
+    @if (loading()) {
+    <!-- Skeleton Cards -->
+    @for (item of [1, 2, 3]; track item) {
+    <div class="program-card skeleton-card">
+      <div class="skeleton-image"></div>
+      <div class="skeleton-info">
+        <div class="skeleton-tag"></div>
+        <div class="skeleton-text"></div>
+      </div>
+    </div>
+    } } @else {
+    <!-- Cards de Programas -->
+    @for (programa of programas; track programa.id; let isLast = $last) {
+    <div class="program-card" [ngClass]="{ last: isLast }">
+      <img [src]="programa.imageUrl" [alt]="programa.nome" />
+      <div class="program-info">
+        @if (programa.started) {
+        <small class="continue-tag">continuar treinando</small>
+        }
+        <p class="program-name">{{ programa.nome }}</p>
+      </div>
+    </div>
+    } }
+  </div>
+</div>

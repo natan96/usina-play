@@ -1,0 +1,38 @@
+<div class="content-section">
+  <div class="section-header">
+    <h1>PERSONAL ONLINE</h1>
+    <div class="add-icon">
+      <ion-icon name="add-outline"></ion-icon>
+    </div>
+  </div>
+
+  <div class="horizontal-scroll">
+    @if (loading()) { @for (item of [1, 2, 3]; track item) {
+    <div class="workout-card skeleton-card">
+      <div class="skeleton-image"></div>
+      <div class="skeleton-title">
+        <div class="skeleton-text"></div>
+      </div>
+    </div>
+    } } @else {
+    <!-- Card Novo Treino -->
+    <div class="workout-card new-workout" (click)="addNewWorkout()">
+      <img src="assets/images/levantamento-de-peso.jpg" alt="Novo Treino" />
+      <div class="overlay">
+        <div class="add-workout-icon">
+          <ion-icon name="add-outline"></ion-icon>
+        </div>
+        <p>NOVO TREINO</p>
+      </div>
+    </div>
+    @for (treino of treinos; track treino.id; let isLast = $last) {
+
+    <div class="workout-card" [ngClass]="{ last: isLast }">
+      <img [src]="treino.imageUrl" [alt]="treino.nome" />
+      <div class="card-title">
+        <p>{{ treino.nome }}</p>
+      </div>
+    </div>
+    } }
+  </div>
+</div>

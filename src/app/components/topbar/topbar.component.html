@@ -1,0 +1,68 @@
+<div class="topbar">
+  <div class="header-top">
+    <ion-button fill="clear" class="menu-btn" (click)="openMenu()">
+      <ion-icon slot="icon-only" name="menu" color="light"></ion-icon>
+    </ion-button>
+
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+    </div>
+
+    <ion-button
+      fill="solid"
+      shape="round"
+      class="notification-btn"
+      (click)="openNotifications()"
+    >
+      <ion-icon
+        slot="icon-only"
+        name="notifications"
+        class="notification-icon"
+      ></ion-icon>
+      @if (notificationCount > 0) {
+      <span class="badge"></span>
+      }
+    </ion-button>
+  </div>
+
+  <div class="user-profile">
+    <ion-avatar class="user-avatar">
+      <img
+        [src]="userAvatar"
+        alt="Avatar"
+        onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBmaWxsPSIjNkI3MjgwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIvPjx0ZXh0IGZpbGw9IiNGRkZGRkYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgeD0iNTAlIiB5PSI1NSUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkpTPC90ZXh0Pjwvc3ZnPg=='"
+      />
+    </ion-avatar>
+    <div class="user-info">
+      <h3>{{ userName }}</h3>
+      <p
+        class="user-level"
+        [ngClass]="{
+          azul: userLevel === 'azul',
+          roxo: userLevel === 'roxo',
+          vermelho: userLevel === 'vermelho'
+        }"
+      >
+        Nível {{ userLevelLabel[userLevel] || "Iniciante" }}
+      </p>
+    </div>
+  </div>
+
+  <div class="container-shortcuts">
+    <div class="action-shortcuts">
+      <ion-button fill="clear" class="shortcut-btn" (click)="openMyBody()">
+        <div class="shortcut-icon">
+          <ion-icon name="body"></ion-icon>
+        </div>
+        <span>MEU CORPO</span>
+      </ion-button>
+
+      <ion-button fill="clear" class="shortcut-btn" (click)="openGoals()">
+        <div class="shortcut-icon">
+          <ion-icon name="trophy"></ion-icon>
+        </div>
+        <span>OBJETIVOS E CONQUISTAS</span>
+      </ion-button>
+    </div>
+  </div>
+</div>
