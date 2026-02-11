@@ -43,7 +43,6 @@ export class NotificationRepository extends FirebaseAbstractRepository<Notificat
           }
         );
 
-        // Retorna função de cleanup
         return () => unsubscribe();
       });
     });
