@@ -39,6 +39,8 @@
 
 .program-card {
   min-width: 250px;
+  max-width: 400px;
+  flex-shrink: 0;
   height: auto;
   overflow: visible;
   position: relative;
@@ -132,6 +134,18 @@
 
 .program-card.last {
   margin-right: 36%;
+}
+
+@media (max-width: 768px) {
+  .program-card {
+    width: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .program-card {
+    width: 250px;
+  }
 }
 
 @keyframes skeleton-loading {

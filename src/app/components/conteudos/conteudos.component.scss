@@ -28,8 +28,10 @@
 }
 
 .content-card {
-  min-width: 250px;
-  height: 167px;
+  max-width: 400px;
+  width: 100%;
+  aspect-ratio: 500 / 334;
+  flex-shrink: 0;
   border: 1px solid white;
   border-radius: 16px;
   padding: 16px;
@@ -60,7 +62,7 @@
     p {
       color: white;
       font-weight: 400;
-      font-size: 20px;
+      font-size: 28px;
       line-height: 1.4;
       margin: 0;
       text-align: center;
@@ -70,4 +72,28 @@
 
 .content-card.last {
   margin-right: 32%;
+}
+
+@media (max-width: 768px) {
+  .content-card {
+    width: 300px;
+
+    .content-text {
+      p {
+        font-size: 22px;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .content-card {
+    width: 250px;
+
+    .content-text {
+      p {
+        font-size: 20px;
+      }
+    }
+  }
 }

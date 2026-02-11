@@ -106,3 +106,53 @@ ion-modal.notifications-modal {
     max-width: 90vw;
   }
 }
+
+// Modal em tela cheia
+ion-modal.fullscreen-modal {
+  --width: 100%;
+  --height: 100%;
+  --border-radius: 0;
+  --box-shadow: none;
+
+  &::part(content) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+// Image Cropper - Variáveis CSS customizadas
+image-cropper {
+  --cropper-outline-color: rgba(0, 0, 0, 0.8);
+  --cropper-overlay-color: rgba(0, 0, 0);
+  --cropper-color: #f07d07;
+  --cropper-border: 2px solid #f07d07;
+  --cropper-hover-border: 2px solid #f28a20;
+  --cropper-focus-border: 2px solid #f28a20;
+  --cropper-resize-square-bg: #f07d07;
+  --cropper-resize-square-border: 1px solid #ffffff;
+  --cropper-resize-square-hover-bg: #f28a20;
+  --cropper-resize-square-hover-border: 1px solid #ffffff;
+
+  background-color: #1a1a1a;
+
+  .ngx-ic-source-image {
+    max-height: 60vh;
+  }
+}
+
+// Alert customizado
+.alert-button-confirm {
+  color: #f07d07 !important;
+  font-weight: 600 !important;
+}
+
+// Modal fullscreen
+.fullscreen-modal {
+  --height: 100%;
+  --width: 100%;
+  --border-radius: 0;
+}

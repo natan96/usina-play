@@ -44,7 +44,7 @@
           vermelho: currentUser.userLevel === 'vermelho'
         }"
       >
-        Nível {{ userLevelLabel[currentUser.userLevel] || "Iniciante" }}
+        Nível {{ userLevelLabel[currentUser.userLevel || ""] || "Iniciante" }}
       </p>
     </div>
   </div>

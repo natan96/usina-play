@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>MEU CORPO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-wrapper">
+    @if (!meuCorpo) {
+    <div class="empty-state">
+      <ion-icon name="body-outline"></ion-icon>
+      <h2>Nenhuma medida cadastrada até o momento</h2>
+      <p>Vamos começar?</p>
+    </div>
+    } @else {
+    <div class="medidas-container">
+      <ion-card class="medida-card">
+        <ion-card-header>
+          <ion-card-title>Dados Básicos</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list lines="none">
+            <ion-item>
+              <ion-icon
+                name="scale-outline"
+                slot="start"
+                color="primary"
+              ></ion-icon>
+              <ion-label>
+                <h3>Peso</h3>
+                <p>{{ meuCorpo.peso }} kg</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon
+                name="resize-outline"
+                slot="start"
+                color="primary"
+              ></ion-icon>
+              <ion-label>
+                <h3>Altura</h3>
+                <p>{{ alturaEmMetros | number : "1.2-2" }} m</p>
+              </ion-label>
+            </ion-item>
+            @if (meuCorpo.percentualGordura) {
+            <ion-item>
+              <ion-icon
+                name="analytics-outline"
+                slot="start"
+                color="primary"
+              ></ion-icon>
+              <ion-label>
+                <h3>Percentual de Gordura</h3>
+                <p>{{ meuCorpo.percentualGordura }}%</p>
+              </ion-label>
+            </ion-item>
+            }
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+
+      @if (hasCircunferencias()) {
+      <ion-card class="medida-card">
+        <ion-card-header>
+          <ion-card-title>Circunferências</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list lines="none">
+            @if (meuCorpo.circunferencias?.cintura) {
+            <ion-item>
+              <ion-label>
+                <h3>Cintura</h3>
+                <p>{{ meuCorpo.circunferencias?.cintura || 0 }} cm</p>
+              </ion-label>
+            </ion-item>
+            } @if (meuCorpo.circunferencias?.quadril) {
+            <ion-item>
+              <ion-label>
+                <h3>Quadril</h3>
+                <p>{{ meuCorpo.circunferencias?.quadril || 0 }} cm</p>
+              </ion-label>
+            </ion-item>
+            } @if (meuCorpo.circunferencias?.busto) {
+            <ion-item>
+              <ion-label>
+                <h3>Busto</h3>
+                <p>{{ meuCorpo.circunferencias?.busto || 0 }} cm</p>
+              </ion-label>
+            </ion-item>
+            } @if (meuCorpo.circunferencias?.pescoco) {
+            <ion-item>
+              <ion-label>
+                <h3>Pescoço</h3>
+                <p>{{ meuCorpo.circunferencias?.pescoco || 0 }} cm</p>
+              </ion-label>
+            </ion-item>
+            } @if (meuCorpo.circunferencias?.biceps) {
+            <ion-item>
+              <ion-label>
+                <h3>Bíceps</h3>
+                <p>{{ meuCorpo.circunferencias?.biceps || 0 }} cm</p>
+              </ion-label>
+            </ion-item>
+            } @if (meuCorpo.circunferencias?.panturrilha) {
+            <ion-item>
+              <ion-label>
+                <h3>Panturrilha</h3>
+                <p>{{ meuCorpo.circunferencias?.panturrilha || 0 }} cm</p>
+              </ion-label>
+            </ion-item>
+            } @if (meuCorpo.circunferencias?.coxa) {
+            <ion-item>
+              <ion-label>
+                <h3>Coxa</h3>
+                <p>{{ meuCorpo.circunferencias?.coxa || 0 }} cm</p>
+              </ion-label>
+            </ion-item>
+            }
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      }
+    </div>
+    }
+  </div>
+</ion-content>

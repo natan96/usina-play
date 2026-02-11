@@ -26,9 +26,14 @@
       </div>
     </div>
     @for (treino of treinos; track treino.id; let isLast = $last) {
-
     <div class="workout-card" [ngClass]="{ last: isLast }">
+      @if (treino.imageUrl) {
       <img [src]="treino.imageUrl" [alt]="treino.nome" />
+      } @else {
+      <div class="placeholder-image">
+        <span>{{ treino.nome }}</span>
+      </div>
+      }
       <div class="card-title">
         <p>{{ treino.nome }}</p>
       </div>

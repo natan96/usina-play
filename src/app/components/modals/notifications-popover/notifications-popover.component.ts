@@ -86,7 +86,5 @@ export class NotificationsPopoverComponent implements OnInit, OnDestroy {
 
   onNotificationClick(notification: Notification) {
     this.markAsRead(notification);
-    // Aqui você pode adicionar navegação ou outras ações
-    console.log('Notificação clicada:', notification);
   }
 }
