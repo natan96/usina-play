@@ -1,5 +1,13 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    inject,
+    OnDestroy,
+    OnInit,
+    signal,
+} from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { filter, Subject, take, takeUntil } from 'rxjs';
 import { Treino } from 'src/app/core/models/treino';
 import { TreinoRepository } from 'src/app/core/repositories';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -11,15 +19,31 @@ import { TreinoFormModalComponent } from '../modals/treino-form-modal/treino-for
   styleUrls: ['./personal-online.component.scss'],
   standalone: false,
 })
-export class PersonalOnlineComponent implements OnInit {
+export class PersonalOnlineComponent implements OnInit, OnDestroy {
   private treinoRepository = inject(TreinoRepository);
   private authService = inject(AuthService);
   private modalController = inject(ModalController);
+  private cdr = inject(ChangeDetectorRef);
+  private destroy$ = new Subject<void>();
   treinos: Treino[] = [];
   loading = signal<boolean>(true);
 
-  async ngOnInit() {
-    await this.loadTreinos();
+  ngOnInit() {
+    // Aguarda usuário estar carregado antes de buscar treinos
+    this.authService.currentUser$
+      .pipe(
+        filter((user) => user !== null),
+        take(1),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.loadTreinos();
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private async loadTreinos() {
@@ -36,6 +60,7 @@ export class PersonalOnlineComponent implements OnInit {
       console.error('Erro ao carregar treinos:', error);
     } finally {
       this.loading.set(false);
+      this.cdr.detectChanges();
     }
   }
 

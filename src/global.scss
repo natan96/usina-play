@@ -37,6 +37,13 @@ body {
   background: #090909;
 }
 
+// Safe area para dispositivos com notch
+ion-header {
+  ion-toolbar {
+    padding-top: env(safe-area-inset-top, 0px) !important;
+  }
+}
+
 // Cor de fundo global
 ion-content {
   --background: #090909;
