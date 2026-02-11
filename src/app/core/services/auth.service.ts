@@ -25,16 +25,14 @@ export class AuthService {
 
       if (storedUser) {
         const user: User = JSON.parse(storedUser);
-        // Converte as datas que foram serializadas como strings
+
         user.createdAt = new Date(user.createdAt);
         user.updatedAt = new Date(user.updatedAt);
         user.lastAccess = new Date(user.lastAccess);
 
         this.currentUserSubject.next(user);
-        // Atualiza o último acesso
         await this.updateLastAccess(user.id);
       } else {
-        // Se não houver usuário no storage, busca o primeiro
         await this.loadFirstUser();
       }
     } catch (error) {
@@ -64,7 +62,6 @@ export class AuthService {
    */
   async setCurrentUser(user: User): Promise<void> {
     try {
-      // Atualiza o último acesso
       const updatedUser = { ...user, lastAccess: new Date() };
       await this.userRepository.update(user.id, {
         lastAccess: updatedUser.lastAccess,
@@ -86,7 +83,6 @@ export class AuthService {
       const now = new Date();
       await this.userRepository.update(userId, { lastAccess: now });
 
-      // Atualiza o usuário no storage
       const currentUser = this.currentUserSubject.value;
       if (currentUser && currentUser.id === userId) {
         const updatedUser = { ...currentUser, lastAccess: now };
