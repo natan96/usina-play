@@ -6,7 +6,9 @@ import { UserLevelLabel } from 'src/app/core/enums/user-level.enum';
 import { User } from 'src/app/core/models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { MeuCorpoModalComponent } from '../modals/meu-corpo-modal/meu-corpo-modal.component';
 import { NotificationsPopoverComponent } from '../modals/notifications-popover/notifications-popover.component';
+import { ObjetivosModalComponent } from '../modals/objetivos-modal/objetivos-modal.component';
 
 @Component({
   selector: 'app-topbar',
@@ -77,11 +79,21 @@ export class TopbarComponent implements OnInit, OnDestroy {
     await modal.present();
   }
 
-  openMyBody() {
-    console.log('Meu corpo aberto');
+  async openMyBody() {
+    const modal = await this.modalCtrl.create({
+      component: MeuCorpoModalComponent,
+      cssClass: 'fullscreen-modal',
+    });
+
+    await modal.present();
   }
 
-  openGoals() {
-    console.log('Objetivos e conquistas aberto');
+  async openGoals() {
+    const modal = await this.modalCtrl.create({
+      component: ObjetivosModalComponent,
+      cssClass: 'fullscreen-modal',
+    });
+
+    await modal.present();
   }
 }

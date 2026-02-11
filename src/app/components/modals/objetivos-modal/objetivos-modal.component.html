@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>OBJETIVOS E CONQUISTAS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-wrapper">
+    @if (!hasObjetivos()) {
+    <div class="empty-state">
+      <ion-icon name="flag-outline"></ion-icon>
+      <h2>Você ainda não definiu seus objetivos</h2>
+    </div>
+    } @else {
+    <div class="objetivos-container">
+      @for (objetivo of objetivos; track $index) {
+      <ion-card
+        class="objetivo-card"
+        [class.conquistado]="objetivo.conquistado"
+      >
+        <ion-card-content>
+          <div class="objetivo-info">
+            <div class="objetivo-icon">
+              @if (objetivo.conquistado) {
+              <ion-icon name="trophy" color="primary"></ion-icon>
+              } @else {
+              <div class="circle-outline"></div>
+              }
+            </div>
+            <div class="objetivo-text">
+              <p>{{ objetivo.objetivo }}</p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      }
+    </div>
+    }
+  </div>
+</ion-content>

@@ -1,0 +1,138 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()" [disabled]="loading">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{
+      showCropper
+        ? "Ajustar Imagem"
+        : isEditMode
+        ? "Editar Treino"
+        : "Novo Treino"
+    }}</ion-title>
+    @if (!showCropper) {
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="save()"
+        [disabled]="loading || treinoForm.invalid"
+        color="primary"
+      >
+        <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+        Salvar
+      </ion-button>
+    </ion-buttons>
+    }
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (showCropper) {
+  <div class="cropper-container">
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="aspectRatio"
+      [resizeToWidth]="500"
+      [containWithinAspectRatio]="true"
+      [alignImage]="'center'"
+      [backgroundColor]="'#1a1a1a'"
+      [onlyScaleDown]="true"
+      output="base64"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+
+    <div class="cropper-actions">
+      <ion-button
+        expand="block"
+        (click)="cancelCrop()"
+        fill="outline"
+        color="medium"
+      >
+        <ion-icon slot="start" name="close-outline"></ion-icon>
+        Cancelar
+      </ion-button>
+      <ion-button expand="block" (click)="confirmCrop()" color="primary">
+        <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+        Confirmar
+      </ion-button>
+    </div>
+  </div>
+  } @if (!showCropper) {
+  <div class="form-container">
+    <form [formGroup]="treinoForm">
+      <ion-item
+        class="form-item"
+        [class.ion-invalid]="hasError('nome')"
+        [class.ion-touched]="treinoForm.get('nome')?.touched"
+      >
+        <ion-label position="stacked">
+          Nome do Treino <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input
+          formControlName="nome"
+          type="text"
+          placeholder="Ex: Treino de Peito e Tríceps"
+          [clearInput]="true"
+        ></ion-input>
+        @if (hasError('nome')) {
+        <ion-note slot="error">
+          {{ getErrorMessage("nome") }}
+        </ion-note>
+        }
+      </ion-item>
+
+      <div class="image-section">
+        @if (croppedImage) {
+        <div class="image-preview">
+          <img [src]="croppedImage" alt="Preview do treino" />
+          <ion-button
+            class="remove-image-btn"
+            fill="clear"
+            color="danger"
+            (click)="removeImage()"
+            size="small"
+          >
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-button>
+        </div>
+        } @else {
+        <div class="no-image" (click)="selectImage()">
+          <ion-icon name="image-outline"></ion-icon>
+          <p>Toque para adicionar imagem</p>
+        </div>
+        }
+
+        <input
+          type="file"
+          id="fileInput"
+          accept="image/*"
+          (change)="onFileChange($event)"
+          style="display: none"
+        />
+
+        <ion-button
+          expand="block"
+          fill="outline"
+          (click)="selectImage()"
+          class="select-image-btn"
+        >
+          <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
+          {{ croppedImage ? "Trocar Imagem" : "Selecionar Imagem" }}
+        </ion-button>
+      </div>
+    </form>
+  </div>
+  }
+
+  <!-- Loading Overlay -->
+  @if (loading) {
+  <div class="loading-overlay">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Salvando treino...</p>
+  </div>
+  }
+</ion-content>

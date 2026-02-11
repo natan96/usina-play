@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" [text]="'Voltar'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>PERSONAL ONLINE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-wrapper">
+    @if (loading) {
+    <div class="loading-container">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p>Carregando treinos...</p>
+    </div>
+    } @else if (treinos.length === 0) {
+    <div class="empty-state">
+      <ion-icon name="barbell-outline"></ion-icon>
+      <h2>Nenhum treino cadastrado</h2>
+      <p>Crie seu primeiro treino para come\u00e7ar!</p>
+    </div>
+    } @else {
+    <div class="treinos-list">
+      @for (treino of treinos; track treino.id) {
+      <ion-card class="treino-card">
+        <div class="treino-image-container">
+          @if (treino.imageUrl) {
+          <img [src]="treino.imageUrl" [alt]="treino.nome" />
+          } @else {
+          <div class="placeholder-image">
+            <span>{{ treino.nome }}</span>
+          </div>
+          }
+        </div>
+        <ion-card-content>
+          <div class="treino-info">
+            <h2>{{ treino.nome }}</h2>
+            <div class="treino-actions">
+              <ion-button
+                fill="clear"
+                size="small"
+                (click)="openEditModal(treino)"
+              >
+                <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+              </ion-button>
+              <ion-button
+                fill="clear"
+                size="small"
+                color="danger"
+                (click)="confirmDelete(treino)"
+              >
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      }
+    </div>
+    }
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCreateModal()" color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

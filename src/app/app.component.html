@@ -22,14 +22,11 @@
     </ion-header>
     <ion-content class="menu-content">
       <ion-list class="menu-list">
-        <ion-item button (click)="navigateTo('personal-online')">
+        <ion-item button (click)="navigateTo('/')">
+          <ion-label>Home</ion-label>
+        </ion-item>
+        <ion-item button (click)="navigateTo('personal-online-list')">
           <ion-label>Personal Online</ion-label>
-        </ion-item>
-        <ion-item button (click)="navigateTo('programas')">
-          <ion-label>Programas</ion-label>
-        </ion-item>
-        <ion-item button (click)="navigateTo('conteudo')">
-          <ion-label>Conteúdo</ion-label>
         </ion-item>
       </ion-list>
 

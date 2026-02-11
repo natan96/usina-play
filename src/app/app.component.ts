@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -9,8 +10,10 @@ import { MenuController } from '@ionic/angular';
 })
 export class AppComponent {
   private menuCtrl = inject(MenuController);
+  private router = inject(Router);
 
-  navigateTo(_page: string) {
+  navigateTo(page: string) {
+    this.router.navigate([page]);
     this.close();
   }
 

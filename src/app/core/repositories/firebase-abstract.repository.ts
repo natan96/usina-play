@@ -204,7 +204,9 @@ export abstract class FirebaseAbstractRepository<T extends BaseModel> {
    * Busca documentos com filtro simples de campo
    */
   getByField(field: string, value: any): Promise<T[]> {
-    return this.getByQuery([where(field, '==', value)]);
+    return runInInjectionContext(this.injector, () =>
+      this.getByQuery([where(field, '==', value)])
+    );
   }
 
   /**
@@ -214,13 +216,17 @@ export abstract class FirebaseAbstractRepository<T extends BaseModel> {
     field: string,
     direction: 'asc' | 'desc' = 'asc'
   ): Promise<T[]> {
-    return this.getByQuery([orderBy(field, direction)]);
+    return runInInjectionContext(this.injector, () =>
+      this.getByQuery([orderBy(field, direction)])
+    );
   }
 
   /**
    * Busca documentos com limite
    */
   getWithLimit(limitCount: number): Promise<T[]> {
-    return this.getByQuery([limit(limitCount)]);
+    return runInInjectionContext(this.injector, () =>
+      this.getByQuery([limit(limitCount)])
+    );
   }
 }
