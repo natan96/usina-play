@@ -12,7 +12,7 @@
       fill="solid"
       shape="round"
       class="notification-btn"
-      (click)="openNotifications()"
+      (click)="openNotifications($event)"
     >
       <ion-icon
         slot="icon-only"
@@ -25,28 +25,30 @@
     </ion-button>
   </div>
 
+  @if (currentUser) {
   <div class="user-profile">
     <ion-avatar class="user-avatar">
       <img
-        [src]="userAvatar"
+        [src]="currentUser.avatar || 'assets/images/perfil.jpg'"
         alt="Avatar"
         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBmaWxsPSIjNkI3MjgwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIvPjx0ZXh0IGZpbGw9IiNGRkZGRkYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgeD0iNTAlIiB5PSI1NSUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkpTPC90ZXh0Pjwvc3ZnPg=='"
       />
     </ion-avatar>
     <div class="user-info">
-      <h3>{{ userName }}</h3>
+      <h3>{{ currentUser.nome }}</h3>
       <p
         class="user-level"
         [ngClass]="{
-          azul: userLevel === 'azul',
-          roxo: userLevel === 'roxo',
-          vermelho: userLevel === 'vermelho'
+          azul: currentUser.userLevel === 'azul',
+          roxo: currentUser.userLevel === 'roxo',
+          vermelho: currentUser.userLevel === 'vermelho'
         }"
       >
-        Nível {{ userLevelLabel[userLevel] || "Iniciante" }}
+        Nível {{ userLevelLabel[currentUser.userLevel] || "Iniciante" }}
       </p>
     </div>
   </div>
+  }
 
   <div class="container-shortcuts">
     <div class="action-shortcuts">

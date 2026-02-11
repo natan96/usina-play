@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 interface ContentCard {
   selected: boolean;
+  text: string;
 }
 
 @Component({
@@ -12,8 +13,8 @@ interface ContentCard {
 })
 export class ConteudosComponent {
   contentCards: ContentCard[] = [
-    { selected: true },
-    { selected: false },
-    { selected: false },
+    { selected: true, text: 'Exercícios em casa' },
+    { selected: false, text: 'Dicas de alimentação' },
+    { selected: false, text: 'Meditação e relaxamento' },
   ];
 }

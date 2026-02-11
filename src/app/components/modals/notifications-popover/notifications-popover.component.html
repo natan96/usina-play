@@ -1,0 +1,70 @@
+<div class="notifications-modal">
+  <div class="modal-header">
+    <h2>Notificações</h2>
+    <ion-button fill="clear" class="close-btn" (click)="close()">
+      <ion-icon slot="icon-only" name="close" color="light"></ion-icon>
+    </ion-button>
+  </div>
+
+  <div class="modal-content">
+    @if (loading) {
+    <div class="loading-container">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+    } @else if (notifications.length === 0) {
+    <div class="empty-state">
+      <ion-icon name="notifications-off-outline"></ion-icon>
+      <p>Nenhuma notificação</p>
+    </div>
+    } @else {
+    <div class="notifications-header">
+      <span class="notifications-count"
+        >{{ notifications.length }}
+        {{ notifications.length === 1 ? "notificação" : "notificações" }}</span
+      >
+      <ion-button
+        fill="clear"
+        size="small"
+        class="mark-all-btn"
+        (click)="markAllAsRead()"
+      >
+        Marcar todas como lidas
+      </ion-button>
+    </div>
+
+    <ion-list class="notifications-list">
+      @for (notification of notifications; track notification.id) {
+      <ion-item
+        button
+        [class.unread]="!notification.read"
+        (click)="onNotificationClick(notification)"
+      >
+        <div class="notification-content">
+          <div class="notification-header">
+            <h3>{{ notification.title }}</h3>
+            @if (!notification.read) {
+            <span class="unread-badge"></span>
+            }
+          </div>
+          <p class="notification-message">{{ notification.message }}</p>
+          <span class="notification-date">{{
+            notification.createdAt | date : "dd/MM/yyyy 'às' HH:mm"
+          }}</span>
+        </div>
+        @if (!notification.read) {
+        <ion-button
+          fill="clear"
+          size="small"
+          slot="end"
+          class="mark-read-btn"
+          (click)="markAsRead(notification, $event)"
+        >
+          <ion-icon slot="icon-only" name="checkmark-circle-outline"></ion-icon>
+        </ion-button>
+        }
+      </ion-item>
+      }
+    </ion-list>
+    }
+  </div>
+</div>

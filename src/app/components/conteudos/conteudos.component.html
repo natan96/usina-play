@@ -4,11 +4,17 @@
   </div>
 
   <div class="horizontal-scroll">
-    @for (card of contentCards; track card) {
-    <div class="content-card" [ngClass]="{ highlighted: card.selected }">
+    @for (card of contentCards; track card; let isLast = $last) {
+    <div
+      class="content-card"
+      [ngClass]="{ highlighted: card.selected, last: isLast }"
+    >
       @if (card.selected) {
       <div class="highlight-box"></div>
       }
+      <div class="content-text">
+        <p>{{ card.text }}</p>
+      </div>
     </div>
     }
   </div>

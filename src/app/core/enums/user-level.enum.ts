@@ -4,7 +4,7 @@ export enum UserLevel {
   VERMELHO = 'vermelho',
 }
 
-export const UserLevelLabel: { [key in UserLevel]: string } = {
+export const UserLevelLabel: { [key: string]: string } = {
   [UserLevel.AZUL]: 'Azul',
   [UserLevel.ROXO]: 'Roxo',
   [UserLevel.VERMELHO]: 'Vermelho',
