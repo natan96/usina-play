@@ -13,6 +13,7 @@ import {
   query,
   QueryConstraint,
   serverTimestamp,
+  setDoc,
   updateDoc,
   where,
 } from '@angular/fire/firestore';
@@ -46,7 +47,7 @@ export abstract class FirebaseAbstractRepository<T extends BaseModel> {
   /**
    * Cria um novo documento
    */
-  async create(data: Omit<T, 'id' | 'createdAt' | 'updatedAt'>): Promise<T> {
+  async add(data: Omit<T, 'id' | 'createdAt' | 'updatedAt'>): Promise<T> {
     return runInInjectionContext(this.injector, async () => {
       try {
         const collectionRef = collection(this.firestore, this.collectionName);
@@ -65,6 +66,37 @@ export abstract class FirebaseAbstractRepository<T extends BaseModel> {
         } as T;
       } catch (error) {
         console.error('Erro ao criar documento:', error);
+        throw error;
+      }
+    });
+  }
+
+  /**
+   * Cria ou sobrescreve um documento com ID específico
+   */
+  async set(
+    id: string,
+    data: Omit<T, 'id' | 'createdAt' | 'updatedAt'>,
+    merge: boolean = false
+  ): Promise<T> {
+    return runInInjectionContext(this.injector, async () => {
+      try {
+        const docRef = doc(this.firestore, this.collectionName, id);
+        const dataWithTimestamps = {
+          ...data,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        };
+
+        await setDoc(docRef, dataWithTimestamps, { merge });
+        return {
+          ...data,
+          id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        } as T;
+      } catch (error) {
+        console.error('Erro ao criar/atualizar documento:', error);
         throw error;
       }
     });
