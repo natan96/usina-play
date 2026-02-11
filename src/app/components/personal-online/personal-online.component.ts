@@ -49,7 +49,6 @@ export class PersonalOnlineComponent implements OnInit {
 
     const { data } = await modal.onWillDismiss();
 
-    // Recarrega a lista se o treino foi criado com sucesso
     if (data?.success) {
       await this.loadTreinos();
     }

@@ -16,7 +16,7 @@
       </div>
     </div>
     } } @else {
-    <!-- Cards de Programas -->
+    <!-- Cards de Programas carregados -->
     @for (programa of programas; track programa.id; let isLast = $last) {
     <div class="program-card" [ngClass]="{ last: isLast }">
       <img [src]="programa.imageUrl" [alt]="programa.nome" />
