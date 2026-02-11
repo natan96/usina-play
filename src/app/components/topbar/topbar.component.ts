@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { Component, inject } from '@angular/core';
+import { IonicModule, MenuController } from '@ionic/angular';
 import { UserLevel, UserLevelLabel } from 'src/app/core/enums/user-level.enum';
 
 @Component({
@@ -11,14 +11,16 @@ import { UserLevel, UserLevelLabel } from 'src/app/core/enums/user-level.enum';
   standalone: true,
 })
 export class TopbarComponent {
+  private menuCtrl = inject(MenuController);
+
   userName = 'Leonardo Santos';
   userLevel: UserLevel = UserLevel.ROXO;
   userAvatar = 'assets/images/perfil.jpg';
   notificationCount = 3;
   userLevelLabel = UserLevelLabel;
 
-  openMenu() {
-    console.log('Menu aberto');
+  async openMenu() {
+    await this.menuCtrl.open('main-menu');
   }
 
   openNotifications() {

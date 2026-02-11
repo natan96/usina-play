@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,17 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
-  constructor() {}
+  private menuCtrl = inject(MenuController);
+
+  navigateTo(_page: string) {
+    this.close();
+  }
+
+  logout() {
+    this.close();
+  }
+
+  close() {
+    this.menuCtrl.close('main-menu');
+  }
 }

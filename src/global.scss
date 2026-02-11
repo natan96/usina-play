@@ -72,3 +72,12 @@ ion-content {
   --padding-start: 0;
   --padding-end: 0;
 }
+
+// Menu backdrop - usar padrão do Ionic
+ion-backdrop.menu-backdrop {
+  background: rgba(0, 0, 0, 0.32) !important;
+}
+
+ion-menu-button {
+  --color: white;
+}
