@@ -521,20 +521,6 @@ ionic capacitor open ios
 9. **Componentização Inteligente**: Mix estratégico de standalone e module components
 10. **CSS Moderno**: Variables, nesting, media queries, animations
 
-## Testes
-
-### Executar Testes Unitários
-
-```bash
-npm test
-```
-
-### Executar em CI
-
-```bash
-npm run test:ci
-```
-
 ## Informações de Desenvolvimento
 
 ### Tempo de Desenvolvimento
