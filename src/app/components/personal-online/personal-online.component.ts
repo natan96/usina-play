@@ -11,6 +11,7 @@ import { filter, Subject, take, takeUntil } from 'rxjs';
 import { Treino } from 'src/app/core/models/treino';
 import { TreinoRepository } from 'src/app/core/repositories';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { TreinoService } from 'src/app/core/services/treino.service';
 import { TreinoFormModalComponent } from '../modals/treino-form-modal/treino-form-modal.component';
 
 @Component({
@@ -22,6 +23,7 @@ import { TreinoFormModalComponent } from '../modals/treino-form-modal/treino-for
 export class PersonalOnlineComponent implements OnInit, OnDestroy {
   private treinoRepository = inject(TreinoRepository);
   private authService = inject(AuthService);
+  private treinoService = inject(TreinoService);
   private modalController = inject(ModalController);
   private cdr = inject(ChangeDetectorRef);
   private destroy$ = new Subject<void>();
@@ -35,6 +37,13 @@ export class PersonalOnlineComponent implements OnInit, OnDestroy {
         take(1),
         takeUntil(this.destroy$)
       )
+      .subscribe(() => {
+        this.loadTreinos();
+      });
+
+    // Recarrega quando houver mudanças em treinos
+    this.treinoService.treinoChanged$
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.loadTreinos();
       });

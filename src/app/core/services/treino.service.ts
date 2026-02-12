@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Treino } from '../models/treino';
 import { TreinoRepository } from '../repositories/treino.repository';
 
@@ -7,6 +8,9 @@ import { TreinoRepository } from '../repositories/treino.repository';
   providedIn: 'root',
 })
 export class TreinoService {
+  private treinoChangedSubject = new Subject<void>();
+  treinoChanged$ = this.treinoChangedSubject.asObservable();
+
   constructor(private treinoRepository: TreinoRepository) {}
 
   /**
@@ -15,14 +19,18 @@ export class TreinoService {
   createTreino(
     treino: Omit<Treino, 'id' | 'createdAt' | 'updatedAt'>
   ): Observable<Treino> {
-    return from(this.treinoRepository.add(treino));
+    return from(this.treinoRepository.add(treino)).pipe(
+      tap(() => this.treinoChangedSubject.next())
+    );
   }
 
   /**
    * Atualiza um treino existente
    */
   updateTreino(id: string, treino: Partial<Treino>): Observable<void> {
-    return from(this.treinoRepository.update(id, treino));
+    return from(this.treinoRepository.update(id, treino)).pipe(
+      tap(() => this.treinoChangedSubject.next())
+    );
   }
 
   /**
@@ -50,6 +58,8 @@ export class TreinoService {
    * Deleta um treino
    */
   deleteTreino(id: string): Observable<void> {
-    return from(this.treinoRepository.delete(id));
+    return from(this.treinoRepository.delete(id)).pipe(
+      tap(() => this.treinoChangedSubject.next())
+    );
   }
 }
