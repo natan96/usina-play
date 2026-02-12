@@ -1,10 +1,10 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    inject,
-    OnDestroy,
-    OnInit,
-    signal,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
 } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { filter, Subject, take, takeUntil } from 'rxjs';
@@ -29,7 +29,6 @@ export class PersonalOnlineComponent implements OnInit, OnDestroy {
   loading = signal<boolean>(true);
 
   ngOnInit() {
-    // Aguarda usuário estar carregado antes de buscar treinos
     this.authService.currentUser$
       .pipe(
         filter((user) => user !== null),
@@ -62,6 +61,10 @@ export class PersonalOnlineComponent implements OnInit, OnDestroy {
       this.loading.set(false);
       this.cdr.detectChanges();
     }
+  }
+
+  public async refresh(): Promise<void> {
+    await this.loadTreinos();
   }
 
   async addNewWorkout() {

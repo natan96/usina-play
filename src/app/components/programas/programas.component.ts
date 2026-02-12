@@ -47,10 +47,15 @@ export class ProgramasComponent implements OnInit, OnDestroy {
     try {
       const currentUser = this.authService.getCurrentUser();
       if (currentUser) {
-        this.programas = await this.programaRepository.getByField(
+        const programas = await this.programaRepository.getByField(
           'userId',
           currentUser.id
         );
+        this.programas = programas.sort((a, b) => {
+          const dateA = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+          const dateB = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+          return dateB - dateA;
+        });
       }
     } catch (error) {
       console.error('Erro ao carregar programas:', error);
@@ -58,5 +63,9 @@ export class ProgramasComponent implements OnInit, OnDestroy {
       this.loading.set(false);
       this.cdr.detectChanges();
     }
+  }
+
+  public async refresh(): Promise<void> {
+    await this.loadProgramas();
   }
 }

@@ -32,7 +32,7 @@ export abstract class FirebaseAbstractRepository<T extends BaseModel> {
       ...data,
       id,
       createdAt: data['createdAt']?.toDate() || new Date(),
-      updatedAt: data['updatedAt']?.toDate() || new Date(),
+      updatedAt: data['updatedAt']?.toDate() || null,
     } as T;
   }
 

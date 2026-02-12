@@ -27,7 +27,7 @@ export class AuthService {
         const user: User = JSON.parse(storedUser);
 
         user.createdAt = new Date(user.createdAt);
-        user.updatedAt = new Date(user.updatedAt);
+        user.updatedAt = user.updatedAt ? new Date(user.updatedAt) : null;
         user.lastAccess = new Date(user.lastAccess);
 
         this.currentUserSubject.next(user);
